@@ -27,7 +27,7 @@ ap.add_argument("-p", "--prototxt", default="mobilenet_ssd/MobileNetSSD_deploy.p
 	help="path to Caffe 'deploy' prototxt file")
 ap.add_argument("-m", "--model", default="mobilenet_ssd/MobileNetSSD_deploy.caffemodel",
 	help="path to Caffe pre-trained model")
-ap.add_argument("-i", "--input", type=str, required=True,
+ap.add_argument("-i", "--input", type=str,
 	help="path to optional input video file")
 ap.add_argument("-o", "--output", type=str,
 	help="path to optional output video file")
