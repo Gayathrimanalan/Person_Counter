@@ -70,6 +70,10 @@ Run the python script by passing a video to the input argument:
 	people_counter.py [-h] [-p PROTOTXT] [-m MODEL] -i INPUT [-o OUTPUT]
                          [-c CONFIDENCE] [-s SKIP_FRAMES]
 
+##### Example:
+
+	python people_counter.py -i videos\example_01.mp4
+
 ##### Optional arguments:
 
 - **-h, --help:** Show this help message and exit
@@ -86,6 +90,9 @@ Run the python script by passing a video to the input argument:
 
 - **-s SKIP_FRAMES, --skip-frames SKIP_FRAMES:** # of skip frames between detections
 
+### Output:
+
+![](images/example.png)
 
 [repo]: https://github.com/gokulramtj/Person_Counter "Person_Counter Github repo"
 [anaconda]: https://www.anaconda.com/distribution/#download-section "Download Anaconda "
