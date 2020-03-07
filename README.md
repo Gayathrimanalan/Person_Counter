@@ -1,4 +1,4 @@
-# Percon Counter
+# Person Counter
 #### This project aims to track people and update people count in realtime using OpenCV and dlib in Python
 
 ### Prerequisites:
