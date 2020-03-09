@@ -35,6 +35,8 @@ ap.add_argument("-c", "--confidence", type=float, default=0.3,
 	help="minimum probability to filter weak detections")
 ap.add_argument("-s", "--skip-frames", type=int, default=30,
 	help="# of skip frames between detections")
+ap.add_argument("-a", "--alert", type=int, default=5,
+	help="# of minimum people to start alert")
 args = vars(ap.parse_args())
 
 # initialize the list of class labels MobileNet SSD was trained to
@@ -255,7 +257,7 @@ while True:
 		("Count", str(count))
 
 	]
-	if (count>1):
+	if (count > args["alert"]):
 		info.append(("Alert!", "Over Crowd"))
 
 
