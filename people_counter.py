@@ -21,6 +21,17 @@ import time
 import dlib
 import cv2
 
+# function to parse boolean
+def str2bool(v):
+    if isinstance(v, bool):
+       return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--prototxt", default="mobilenet_ssd/MobileNetSSD_deploy.prototxt",
@@ -37,6 +48,8 @@ ap.add_argument("-s", "--skip-frames", type=int, default=30,
 	help="# of skip frames between detections")
 ap.add_argument("-a", "--alert", type=int, default=5,
 	help="# of minimum people to start alert")
+ap.add_argument("-g", "--graph", type=str2bool, default=False,
+	help="option to plot tracking")
 args = vars(ap.parse_args())
 
 # initialize the list of class labels MobileNet SSD was trained to
@@ -241,12 +254,13 @@ while True:
 
 		# draw both the ID of the object and the centroid of the
 		# object on the output frame
-		text = "ID {}".format(objectID)
-		cv2.putText(frame, text, (centroid[0] - 10, centroid[1] - 10),
-			cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-		cv2.circle(frame, (centroid[0], centroid[1]), 4, (0, 255, 0), -1)
-		for i in rects:
-			cv2.rectangle(frame, (i[0], i[1]), (i[2], i[3]), (255, 0, 0) ,  2)
+		if(args["graph"]):
+			text = "ID {}".format(objectID)
+			cv2.putText(frame, text, (centroid[0] - 10, centroid[1] - 10),
+				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+			cv2.circle(frame, (centroid[0], centroid[1]), 4, (0, 255, 0), -1)
+			for i in rects:
+				cv2.rectangle(frame, (i[0], i[1]), (i[2], i[3]), (255, 0, 0) ,  2)
 
 	# construct a tuple of information we will be displaying on the
 	# frame

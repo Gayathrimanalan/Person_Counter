@@ -91,6 +91,9 @@ Run the python script by passing a video to the input argument:
 - **-s SKIP_FRAMES, --skip-frames SKIP_FRAMES:** # of skip frames between detections
 
 - **-a ALERT, --alert ALERT:** # of minimum people to start alert
+
+- **-g GRAPH, --graph GRAPH:** option to plot tracking
+
 ### Output:
 
 ![](images/example.png)
