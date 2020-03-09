@@ -42,7 +42,7 @@ ap.add_argument("-i", "--input", type=str,
 	help="path to optional input video file")
 ap.add_argument("-o", "--output", type=str,
 	help="path to optional output video file")
-ap.add_argument("-c", "--confidence", type=float, default=0.3,
+ap.add_argument("-c", "--confidence", type=float, default=0.4,
 	help="minimum probability to filter weak detections")
 ap.add_argument("-s", "--skip-frames", type=int, default=30,
 	help="# of skip frames between detections")
@@ -265,6 +265,7 @@ while True:
 	# construct a tuple of information we will be displaying on the
 	# frame
 	count = len(rects)
+	color = (0, 255, 0)
 	info = [
 		("Status", status),
 		# ("Total Count", str(len(trackableObjects))),
@@ -273,13 +274,13 @@ while True:
 	]
 	if (count > args["alert"]):
 		info.append(("Alert!", "Over Crowd"))
-
+		color = (0, 0, 255)
 
 	# loop over the info tuples and draw them on our frame
 	for (i, (k, v)) in enumerate(info):
-		text = "{}: {}".format(k, v)
-		cv2.putText(frame, text, (10, H - ((i * 20) + 20)),
-			cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+		text = "{} : {}".format(k, v)
+		cv2.putText(frame, text, (10, H - ((i * 30) + 30)),
+			cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2)
 
 	# check to see if we should write the frame to disk
 	if writer is not None:
