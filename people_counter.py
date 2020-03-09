@@ -31,7 +31,7 @@ ap.add_argument("-i", "--input", type=str,
 	help="path to optional input video file")
 ap.add_argument("-o", "--output", type=str,
 	help="path to optional output video file")
-ap.add_argument("-c", "--confidence", type=float, default=0.4,
+ap.add_argument("-c", "--confidence", type=float, default=0.3,
 	help="minimum probability to filter weak detections")
 ap.add_argument("-s", "--skip-frames", type=int, default=30,
 	help="# of skip frames between detections")
@@ -189,7 +189,7 @@ while True:
 	# draw a horizontal line in the center of the frame -- once an
 	# object crosses this line we will determine whether they were
 	# moving 'up' or 'down'
-	cv2.line(frame, (0, H // 2), (W, H // 2), (0, 255, 255), 2)
+	# cv2.line(frame, (0, H // 2), (W, H // 2), (0, 255, 255), 2)
 
 	# use the centroid tracker to associate the (1) old object
 	# centroids with (2) the newly computed object centroids
@@ -243,13 +243,21 @@ while True:
 		cv2.putText(frame, text, (centroid[0] - 10, centroid[1] - 10),
 			cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 		cv2.circle(frame, (centroid[0], centroid[1]), 4, (0, 255, 0), -1)
+		for i in rects:
+			cv2.rectangle(frame, (i[0], i[1]), (i[2], i[3]), (255, 0, 0) ,  2)
 
 	# construct a tuple of information we will be displaying on the
 	# frame
+	count = len(rects)
 	info = [
 		("Status", status),
-		("Count", str(len(trackableObjects)))
+		# ("Total Count", str(len(trackableObjects))),
+		("Count", str(count))
+
 	]
+	if (count>1):
+		info.append(("Alert!", "Over Crowd"))
+
 
 	# loop over the info tuples and draw them on our frame
 	for (i, (k, v)) in enumerate(info):
@@ -278,7 +286,7 @@ while True:
 fps.stop()
 print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
 print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-print("[RESULT] People count: " + str(len(trackableObjects)))
+print("[RESULT] Total People count: " + str(len(trackableObjects)))
 
 # check to see if we need to release the video writer pointer
 if writer is not None:
