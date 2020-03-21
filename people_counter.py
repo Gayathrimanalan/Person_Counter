@@ -21,6 +21,8 @@ import time
 import dlib
 import cv2
 
+import plotCPF
+
 # function to parse boolean
 def str2bool(v):
     if isinstance(v, bool):
@@ -94,6 +96,7 @@ trackableObjects = {}
 totalFrames = 0
 totalDown = 0
 totalUp = 0
+plotList = []
 
 # start the frames per second throughput estimator
 fps = FPS().start()
@@ -297,6 +300,7 @@ while True:
 	# increment the total number of frames processed thus far and
 	# then update the FPS counter
 	totalFrames += 1
+	plotList.append(count)
 	fps.update()
 
 # stop the timer and display FPS information
@@ -319,3 +323,5 @@ else:
 
 # close any open windows
 cv2.destroyAllWindows()
+
+plotCPF.plot(plotList)

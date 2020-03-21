@@ -12,6 +12,7 @@
 - opencv
 - imutils
 - dlib
+- matplotlib
 
 ### Setup
 
